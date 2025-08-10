@@ -10,8 +10,16 @@ repositories {
 }
 
 dependencies {
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    // OpenCSV
+    implementation 'com.opencsv:opencsv:3.7'
+
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.22.0'
 }
 
 test {
