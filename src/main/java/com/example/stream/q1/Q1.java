@@ -5,6 +5,7 @@ import com.opencsv.CSVReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -15,9 +16,11 @@ public class Q1 {
     public Map<String, Integer> quiz1() throws IOException {
         List<String[]> csvLines = readCsvLines();
 
-        Map<String, Integer> results = csvLines.stream()
+        Map<String, Integer> results = new HashMap<>();
+
+        csvLines.stream()
                 .flatMap(line -> Arrays.stream(line[1].replaceAll("\\s", "").split(":")))
-                .collect(Collectors.toMap(k -> k, v -> 1, Integer::sum));
+                .forEach(hobby -> results.merge(hobby, 1, Integer::sum));
 
         results.entrySet().forEach(entry -> {
             System.out.println(entry.getKey() + ":" + entry.getValue());
@@ -30,10 +33,16 @@ public class Q1 {
     public Map<String, Integer> quiz2() throws IOException {
         List<String[]> csvLines = readCsvLines();
 
-        Map<String, Integer> results = csvLines.stream()
-                .filter(name -> name[0].startsWith("정"))
-                .flatMap(line -> Arrays.stream(line[1].replaceAll("\\s", "").split(":")))
-                .collect(Collectors.toMap(k -> k, v -> 1, Integer::sum));
+//        Map<String, Integer> results = csvLines.stream()
+//                .filter(name -> name[0].startsWith("정"))
+//                .flatMap(line -> Arrays.stream(line[1].replaceAll("\\s", "").split(":")))
+//                .collect(Collectors.toMap(k -> k, v -> 1, Integer::sum));
+
+        Map<String, Integer> results = new HashMap<>();
+        csvLines.stream()
+                        .filter(name -> name[0].startsWith("정"))
+                        .flatMap(line -> Arrays.stream(line[1].replaceAll("\\s", "").split(":")))
+                        .forEach(hobby -> results.merge(hobby, 1, Integer::sum));
 
         results.entrySet().forEach(entry -> {
             System.out.println(entry.getKey() + ":" + entry.getValue());
