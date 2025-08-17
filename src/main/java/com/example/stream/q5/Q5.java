@@ -25,7 +25,7 @@ public class Q5 {
 
     // 5.3 임의의 로또번호(1~45)를 정렬해서 출력하시오.
     public List<Integer> quiz3() {
-        return IntStream.rangeClosed(1, 46)
+        return IntStream.rangeClosed(1, 45)
                 .distinct()
                 .limit(6)
                 .sorted()

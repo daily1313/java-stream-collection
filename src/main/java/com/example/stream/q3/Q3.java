@@ -1,9 +1,7 @@
 package com.example.stream.q3;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Q3 {
 
@@ -13,15 +11,9 @@ public class Q3 {
     // 3.1 모든 숫자 쌍의 배열 리스트를 반환하여라.
     // ex) numbers1 = [1,2,3], numbers2 = [3,4] -> [(1,3), (1,4), (2,3), (2,4), (3,3), (3,4)]
     public List<Integer[]> quiz1() {
-        List<Integer[]> results = numbers1.stream()
+        return numbers1.stream()
                 .flatMap(i -> numbers2.stream().map(j -> new Integer[]{i, j}))
-                .collect(Collectors.toList());
-
-        results.forEach(result -> {
-            System.out.println(result[0] + "," + result[1]);
-        });
-
-        return results;
+                .toList();
     }
 
     // 3.2 모든 숫자 쌍의 곱이 가장 큰 값을 반환하여라.
@@ -29,8 +21,7 @@ public class Q3 {
     public int quiz2() {
         return numbers1.stream()
                 .flatMap(i -> numbers2.stream().map(j -> new Integer[] {i, j}))
-                .map(a -> a[0] * a[1])
-                .max(Integer::compareTo)
-                .orElse(0);
+                .mapToInt(arr -> arr[0] * arr[1])
+                .max().orElse(0);
     }
 }

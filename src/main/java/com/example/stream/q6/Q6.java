@@ -1,9 +1,11 @@
 package com.example.stream.q6;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.summingInt;
 
 public class Q6 {
 
@@ -36,7 +38,7 @@ public class Q6 {
     public Map<Boolean, List<Student>> quiz1() {
         return Arrays.stream(stuArr)
                 .filter(s -> s.getScore() < 150)
-                .collect(groupingBy(Student::isMale, toList()));
+                .collect(groupingBy(Student::isMale));
     }
 
     // 각 반별 총점을 학년 별로 나누어 구하여라 (Map<Integer, Map<Integer, Integer>>)

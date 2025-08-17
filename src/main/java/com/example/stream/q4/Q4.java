@@ -1,12 +1,9 @@
 package com.example.stream.q4;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.Comparator.comparingInt;
 
 public class Q4 {
 
@@ -30,59 +27,37 @@ public class Q4 {
 
     // 4.1 2020년에 일어난 모든 거래 내역을 찾아 거래값을 기준으로 오름차순 정렬하라.
     public List<Transaction> quiz1() {
-        List<Transaction> results = transactions.stream()
+        return transactions.stream()
                 .filter(t -> t.getYear() == 2020)
-                .sorted(comparingInt(Transaction::getValue))
+                .sorted(Comparator.comparingInt(Transaction::getValue))
                 .collect(Collectors.toList());
-
-        results.forEach(t -> {
-            System.out.println(t.getYear() + " " + t.getValue());
-        });
-
-        return results;
     }
 
     // 4.2 거래 내역이 있는 거래자가 근무하는 모든 도시를 중복 없이 나열하라.
     public List<String> quiz2() {
-        List<String> results = transactions.stream()
+        return transactions.stream()
                 .map(t -> t.getTrader().getCity())
                 .distinct()
                 .collect(Collectors.toList());
-
-        results.forEach(t -> {
-            System.out.println(t);
-        });
-
-        return results;
     }
 
     // 4.3 서울에서 근무하는 모든 거래자를 찾아서 이름순서대로 정렬하라.
     public List<Trader> quiz3() {
-        List<Trader> results = transactions.stream()
+        return transactions.stream()
                 .map(Transaction::getTrader)
+                .filter(trader -> trader.getCity().equals("Seoul"))
                 .distinct()
-                .filter(t -> t.getCity().equals("Seoul"))
                 .sorted(Comparator.comparing(Trader::getName))
                 .collect(Collectors.toList());
-
-        results.forEach(t -> {
-            System.out.println(t.getCity() + " " + t.getName());
-        });
-
-        return results;
     }
 
     // 4.4 모든 거래자의 이름을 구분자(",")로 구분하여 정렬하라.
     public String quiz4() {
-        String result = transactions.stream()
+        return transactions.stream()
                 .map(t -> t.getTrader().getName())
                 .distinct()
                 .sorted()
                 .collect(Collectors.joining(","));
-
-        System.out.println(result);
-
-        return result;
     }
 
     // 4.5 부산에 거래자가 있는지를 확인하라.
@@ -101,18 +76,16 @@ public class Q4 {
 
     // 4.7 모든 거래 내역중에서 거래 금액의 최댓값과 최솟값을 구하라. 단, 최댓값은 reduce를 이용하고 최솟값은 stream의 min()을 이용하라.
     public Integer[] quiz7() {
+        Integer[] result = new Integer[2];
 
-        Integer[] results = new Integer[2];
-
-        results[0] = transactions.stream()
+        result[0] = transactions.stream()
                 .map(Transaction::getValue)
                 .reduce(0, Integer::max);
 
-        results[1] = transactions.stream()
-                .map(Transaction::getValue)
-                .min(comparingInt(Integer::intValue))
-                .orElse(0);
+        result[1] = transactions.stream()
+                .mapToInt(Transaction::getValue)
+                .min().orElse(0);
 
-        return results;
+        return result;
     }
 }
