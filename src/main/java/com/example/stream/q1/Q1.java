@@ -17,7 +17,7 @@ public class Q1 {
 
         return csvLines.stream()
                 .flatMap(hobby -> Arrays.stream(hobby[1].replaceAll("\\s", "").split(":")))
-                .collect(Collectors.toMap(key -> key, key -> 1, (oldValue, newValue) -> newValue += oldValue));
+                .collect(Collectors.toMap(key -> key, value -> 1, Integer::sum));
     }
 
     // 1.2 각 취미를 선호하는 정씨 성을 갖는 인원이 몇 명인지 계산하여라.
@@ -27,7 +27,7 @@ public class Q1 {
         return csvLines.stream()
                 .filter(name -> name[0].startsWith("정"))
                 .flatMap(hobby -> Arrays.stream(hobby[1].replaceAll("\\s","").split(":")))
-                .collect(Collectors.toMap(key -> key, key -> 1, Integer::sum));
+                .collect(Collectors.toMap(key -> key, value -> 1, Integer::sum));
     }
 
     // 1.3 소개 내용에 '좋아'가 몇번 등장하는지 계산하여라.
