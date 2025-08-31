@@ -12,6 +12,10 @@ public class ReferenceType {
         modify(a, b);
         System.out.println(a.num == 2);
         System.out.println(b.num == 1);
+
+        change(a, b);
+        System.out.println(a.num == 3);
+        System.out.println(b.num == 2);
     }
 
     private static class A {
@@ -33,6 +37,11 @@ public class ReferenceType {
         a.num++;
 
         b = new B(1);
+        b.num++;
+    }
+
+    private static void change(A a, B b) {
+        a.num++;
         b.num++;
     }
 }
