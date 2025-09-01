@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 public class Collection {
 
     public static void main(String[] args) {
-        List<String> list = Arrays.asList("a", "b", "c", "d");
+        List<String> list = Arrays.asList("A", "B", "C", "D");
 
         // enhanced for-loop
         for(String str : list) {
@@ -17,5 +17,12 @@ public class Collection {
         // forEach
         Consumer<String> consumer = System.out::println;
         list.forEach(consumer);
+
+        List<String> lists = new ReverseList();
+        lists.addAll(list);
+
+        lists.forEach(System.out::print);
+        System.out.print(" ");
+        lists.stream().forEach(System.out::print);
     }
 }
